@@ -5,9 +5,9 @@ metadata:
   labels:
     app: aspnetcoreapi
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
-    - port: 80
+    - port: 8
       protocol: TCP
       name: http
   selector:

@@ -1,37 +1,37 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aspnetcore-service
+  name: aspnetcoreui
   labels:
-    app: aspnetcore
+    app: aspnetcoreui
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - port: 80
       protocol: TCP
       name: http
   selector:
-    run: aspnetcore
+    run: aspnetcoreui
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aspnetcore
+  name: aspnetcoreui
 spec:
   selector:
     matchLabels:
-      run: aspnetcore
+      run: aspnetcoreui
   replicas: 1
   strategy:
     type: RollingUpdate
   template:
     metadata:
       labels:
-        run: aspnetcore
+        run: aspnetcoreui
     spec:
       containers:
-        - name: aspnetcore
-          image: docker.io/vijayasankarv/collagelibrarymanagerbooksapi:latest
+        - name: aspnetcoreui
+          image: docker.io/vijayasankarv/collagelibraryui:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
