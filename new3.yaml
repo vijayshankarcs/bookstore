@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: aspnetcoreui
   labels:
-    app: aspnetcoreui
+    run: aspnetcoreui
 spec:
   type: LoadBalancer
   ports:

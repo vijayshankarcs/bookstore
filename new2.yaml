@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: aspnetcoreapi
   labels:
-    app: aspnetcoreapi
+    run: aspnetcoreapi
 spec:
   type: ClusterIP
   ports:
