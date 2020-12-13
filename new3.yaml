@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: aspnetcoreui
-          image: docker.io/vijayasankarv/collagelibraryui:2
+          image: docker.io/vijayasankarv/collagelibraryui:4
           imagePullPolicy: Always
           ports:
             - containerPort: 80
