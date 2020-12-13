@@ -1,0 +1,67 @@
+apiVersion: app/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  generation: 2
+  labels:
+    k8s-app: users-svc
+  name: users-svc
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: users-svc
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        k8s-app: users-svc
+      name: users-svc
+    spec:
+      containers:
+      - image: docker.io/vijayasankarv/collagelibrarymanageruserapi:latest
+        ports:
+          - containerPort: 1739
+        imagePullPolicy: Never
+        name: users-svc
+        resources: {}
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: users-svc
+  name: users-svc
+  namespace: default
+spec:
+  ports:  
+  - port: 1739
+    protocol: TCP
+    targetPort: 1739
+  selector:
+    k8s-app: users-svc
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+  
+
